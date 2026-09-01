@@ -21,3 +21,13 @@ Test without coverage
 ``` bash
 ./gradlew test
 ```
+
+## Dev Commands
+
+### Backend
+
+To clean the gradle build
+
+``` bash
+./gradlew clean build
+```
