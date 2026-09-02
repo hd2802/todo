@@ -55,7 +55,7 @@ public class TaskService {
             throw new IllegalArgumentException("Task with id " + id + " not found");
         } 
 
-        return markTaskAsComplete(taskToUpdate);
+        return markTaskAsIncomplete(taskToUpdate);
     }
 
     @Transactional
