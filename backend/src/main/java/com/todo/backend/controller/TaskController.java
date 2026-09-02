@@ -45,11 +45,6 @@ public class TaskController {
         return taskService.markTaskAsIncomplete(id);
     }
 
-    @PutMapping("/tasks/{id}/description")
-    public Task changeDescription(@PathVariable Long id, @RequestBody String description) {
-        return taskService.changeDescription(id, description);
-    }
-
     @DeleteMapping("/tasks/{id}")
     public Task deleteTask(@PathVariable Long id) {
         return taskService.deleteTaskById(id);

@@ -39,14 +39,14 @@ public class TaskServiceTest {
     private final String TEST_DESCRIPTION = "test_description";
     private final LocalDate TEST_DUE_DATE = LocalDate.now().plusDays(5L);
 
-    private final Long TEST_ID_2 = 2L;
-    private final String TEST_TITLE_2 = "test_title";
-    private final String TEST_DESCRIPTION_2 = "test_description";
     private final LocalDate TEST_DUE_DATE_2 = LocalDate.now().plusDays(7L);
 
     @BeforeEach
     public void setUp() {
         task = createTestTask(TEST_ID, TEST_TITLE, TEST_DESCRIPTION, false, TEST_DUE_DATE);
+        Long TEST_ID_2 = 2L;
+        String TEST_TITLE_2 = "test_title";
+        String TEST_DESCRIPTION_2 = "test_description";
         task2 = createTestTask(TEST_ID_2, TEST_TITLE_2, TEST_DESCRIPTION_2, false, TEST_DUE_DATE_2);
     }
 
@@ -191,49 +191,6 @@ public class TaskServiceTest {
         Task updatedTask = taskService.markTaskAsIncomplete(task);
         assertNotNull(updatedTask);
         assertFalse(updatedTask.isCompleted());
-
-        verify(taskRepository, times(1)).save(task);
-    }
-
-    @Test
-    public void testChangeDescription_whenGivenExistingID_successfullyUpdates() {
-        Long existingId = 1L;
-        String newDescription = "new_description";
-        when(taskRepository.findById(existingId)).thenReturn(Optional.of(task));
-        when(taskRepository.save(any(Task.class))).thenAnswer(returnsFirstArg());
-
-        Task updatedTask = taskService.changeDescription(existingId, newDescription);
-
-        assertNotNull(updatedTask);
-        assertEquals(newDescription, updatedTask.getDescription());
-
-        verify(taskRepository, times(1)).save(task);
-    }
-
-    @Test
-    public void testChangeDescription_whenGivenNonExistingTaskID_throwsError() throws IllegalArgumentException {
-        String newDescription = "new_description";
-        Long nonExistingId = 99L;
-        when(taskRepository.findById(nonExistingId)).thenReturn(Optional.empty());
-
-        IllegalArgumentException thrown = assertThrows(
-                IllegalArgumentException.class,
-                () -> taskService.changeDescription(nonExistingId, newDescription)
-        );
-
-        assertTrue(thrown.getMessage().contains("Task with id " + nonExistingId + " not found"));
-        verify(taskRepository, times(1)).findById(nonExistingId);
-        verify(taskRepository, times(0)).save(any(Task.class));
-    }
-
-    @Test
-    public void testChangeDescription_whenGivenTaskObject_successfullyUpdates() {
-        String newDescription = "new_description";
-        when(taskRepository.save(any(Task.class))).thenAnswer(returnsFirstArg());
-
-        Task updatedTask = taskService.changeDescription(task, newDescription);
-        assertNotNull(updatedTask);
-        assertEquals(newDescription, updatedTask.getDescription());
 
         verify(taskRepository, times(1)).save(task);
     }

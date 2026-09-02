@@ -65,23 +65,6 @@ public class TaskService {
     }
 
     @Transactional
-    public Task changeDescription(Task task, String description) {
-        task.setDescription(description);
-        return taskRepository.save(task);
-    }
-
-    @Transactional
-    public Task changeDescription(Long id, String description) {
-        Task taskToUpdate = taskRepository.findById(id).orElse(null);
-
-        if(taskToUpdate == null) {
-            throw new IllegalArgumentException("Task with id " + id + " not found");
-        } 
-
-        return changeDescription(taskToUpdate, description);
-    }
-
-    @Transactional
     public Task createTask(Task task) {
         /*
         if(taskRepository.findByTitle(task.getTitle())) {
