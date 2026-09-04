@@ -2,12 +2,14 @@
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
 @import "@fontsource-variable/inter";
+@import '@fontsource-variable/jetbrains-mono/wght.css';
 
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
-    --font-heading: var(--font-sans);
+    --font-heading: var(--font-mono);
     --font-sans: 'Inter Variable', sans-serif;
+    --font-mono: 'JetBrains Mono Variable', monospace;
     --color-sidebar-ring: var(--sidebar-ring);
     --color-sidebar-border: var(--sidebar-border);
     --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -84,9 +86,9 @@
 }
 
 .dark {
-    --background: oklch(0.145 0 0);
+    --background: #121318;
     --foreground: oklch(0.985 0 0);
-    --card: oklch(0.205 0 0);
+    --card: #1a1b21;
     --card-foreground: oklch(0.985 0 0);
     --popover: oklch(0.205 0 0);
     --popover-foreground: oklch(0.985 0 0);
@@ -125,6 +127,6 @@
     @apply bg-background text-foreground;
     }
   html {
-    @apply font-sans;
+    @apply font-mono;
     }
 }

@@ -1,17 +1,15 @@
-import { TaskView } from "@/components/custom/TaskView";
+import { TaskItem } from "@/components/custom/TaskItem";
 import type { Task } from "@/types/types";
 
 interface TaskListProps {
     tasks: Task[]
-    completedTasks: Task[]
-    notCompletedTasks: Task[]
 }
 
-export function TaskList({ tasks, completedTasks, notCompletedTasks }: TaskListProps) {
+export function TaskList({ tasks }: TaskListProps) {
     return (
-        <div className="w-full max-w-md min-w-126 flex justify-center flex-col items-center">
-            {notCompletedTasks.map((task) => {
-                return <TaskView key={task.id} task={task} />
+        <div>
+            {tasks.map((task: Task) => {
+                return <TaskItem task={task} />
             })}
         </div>
     )
