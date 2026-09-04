@@ -8,7 +8,7 @@ interface TaskListProps {
 
 export function TaskList({ tasks }: TaskListProps) {
     return (
-        <div>
+        <div className="gap-2 text-xs">
             {tasks.length !== 0 && (
                 <>
                     {tasks.map((task: Task) => {
@@ -17,7 +17,7 @@ export function TaskList({ tasks }: TaskListProps) {
                 </>
             )}
             {tasks.length === 0 && (
-                <Card className="p-2 flex justify-between flex-row items-center rounded-xs">No tasks in this list</Card>
+                <Card className="p-2 flex justify-between flex-row items-center rounded-xs text-xs">No tasks in this list</Card>
             )}
         </div>
     )

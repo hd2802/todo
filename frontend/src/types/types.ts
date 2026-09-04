@@ -2,6 +2,8 @@ export interface TaskState {
     tasks: Task[]
     completedTasks: Task[]
     notCompletedTasks: Task[]
+    overdueTasks: Task[]
+    dueToday: Task[]
     currentTask: Task | null
     isLoading: boolean
     error: string | null

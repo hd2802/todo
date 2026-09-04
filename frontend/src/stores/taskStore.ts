@@ -13,6 +13,8 @@ export const useTaskStore = create<TaskState>((set) => ({
     tasks: [],
     completedTasks: [],
     notCompletedTasks: [],
+    overdueTasks: [],
+    dueToday: [],
     currentTask: null,
     isLoading: false,
     error: null, 
@@ -27,6 +29,14 @@ export const useTaskStore = create<TaskState>((set) => ({
                     tasks: data, 
                     completedTasks: data.filter((task: Task) => (task.completed === true)), 
                     notCompletedTasks: data.filter((task: Task) => (task.completed === false)), 
+                    overdueTasks: data.filter((task: Task) => (new Date(task.dueDate) < new Date())),
+                    dueToday: data.filter((task: Task) => {
+                        const today = new Date();
+                        today.setHours(0, 0, 0, 0)
+                        const taskDueDate = new Date(task.dueDate);
+                        taskDueDate.setHours(0, 0, 0, 0);
+                        return taskDueDate.getTime() === today.getTime();
+                    }),
                     isLoading: true 
                 })
             }
