@@ -5,18 +5,25 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.AdditionalAnswers.returnsFirstArg;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
-import static org.mockito.Mockito.*;
-
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.todo.backend.model.Task;
@@ -36,22 +43,20 @@ public class TaskServiceTest {
 
     private final Long TEST_ID = 1L;
     private final String TEST_TITLE = "test_title";
-    private final String TEST_DESCRIPTION = "test_description";
     private final LocalDate TEST_DUE_DATE = LocalDate.now().plusDays(5L);
 
     private final LocalDate TEST_DUE_DATE_2 = LocalDate.now().plusDays(7L);
 
     @BeforeEach
     public void setUp() {
-        task = createTestTask(TEST_ID, TEST_TITLE, TEST_DESCRIPTION, false, TEST_DUE_DATE);
+        task = createTestTask(TEST_ID, TEST_TITLE, false, TEST_DUE_DATE);
         Long TEST_ID_2 = 2L;
         String TEST_TITLE_2 = "test_title";
-        String TEST_DESCRIPTION_2 = "test_description";
-        task2 = createTestTask(TEST_ID_2, TEST_TITLE_2, TEST_DESCRIPTION_2, false, TEST_DUE_DATE_2);
+        task2 = createTestTask(TEST_ID_2, TEST_TITLE_2, false, TEST_DUE_DATE_2);
     }
 
-    private Task createTestTask(Long id, String title, String description, boolean isComplete, LocalDate dueDate) {
-        return new Task(id, title, description, isComplete, dueDate);
+    private Task createTestTask(Long id, String title, boolean isComplete, LocalDate dueDate) {
+        return new Task(id, title, isComplete, dueDate);
     }
 
     @Test
@@ -76,7 +81,6 @@ public class TaskServiceTest {
         assertEquals(foundTask, task);
         assertEquals(foundTask.getId(), existingId);
         assertEquals(foundTask.getTitle(), TEST_TITLE);
-        assertEquals(foundTask.getDescription() , TEST_DESCRIPTION);
         assertEquals(foundTask.getDueDate(), TEST_DUE_DATE);
         verify(taskRepository, times(1)).findById(existingId);
     }
@@ -201,7 +205,6 @@ public class TaskServiceTest {
         Task newTask = taskService.createTask(task);
         assertNotNull(newTask);
         assertEquals(TEST_TITLE, newTask.getTitle());
-        assertEquals(TEST_DESCRIPTION, newTask.getDescription());
 
         verify(taskRepository, times(1)).save(task);
     }

@@ -11,6 +11,8 @@ import type { Task, TaskState } from "@/types/types";
 
 export const useTaskStore = create<TaskState>((set) => ({
     tasks: [],
+    completedTasks: [],
+    notCompletedTasks: [],
     currentTask: null,
     isLoading: false,
     error: null, 
@@ -21,7 +23,12 @@ export const useTaskStore = create<TaskState>((set) => ({
             const data = await getTasks();
             
             if (data) {
-                set({ tasks: data, isLoading: true })
+                set({ 
+                    tasks: data, 
+                    completedTasks: data.filter((task: Task) => (task.completed === true)), 
+                    notCompletedTasks: data.filter((task: Task) => (task.completed === false)), 
+                    isLoading: true 
+                })
             }
 
         } catch(e: any) {
@@ -47,7 +54,6 @@ export const useTaskStore = create<TaskState>((set) => ({
         try {
             const createdTask = await postNewTask(newTaskData);
             if (createdTask) {
-                console.log("Task created:", createdTask);
                 set((state) => ({
                     tasks: [...state.tasks, createdTask],
                     }));
@@ -69,6 +75,12 @@ export const useTaskStore = create<TaskState>((set) => ({
                         task.id === id ? { ...task, completed: true } : task
                     ),
                 }));
+                set((state) => ({
+                    completedTasks: [...state.completedTasks, updatedTask],
+                }));
+                set((state) => ({
+                    notCompletedTasks: state.notCompletedTasks.filter((task: Task) => (task.id !== updatedTask.id))
+                }))
             }
             set({ isLoading: false })
         } catch(e: any) {
@@ -86,6 +98,12 @@ export const useTaskStore = create<TaskState>((set) => ({
                         task.id === id ? { ...task, completed: false } : task
                     ),
                 }));
+                set((state) => ({
+                    notCompletedTasks: [...state.notCompletedTasks, updatedTask],
+                }));
+                set((state) => ({
+                    completedTasks: state.completedTasks.filter((task: Task) => (task.id !== updatedTask.id))
+                }))
             }
             set({ isLoading: false })
         } catch(e: any) {

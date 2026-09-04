@@ -1,30 +1,27 @@
 import { useEffect } from "react";
-import { Button } from "@/components/ui/button"
+import { TaskList } from "@/components/custom/TaskList";
 import { useTaskStore } from "@/stores/taskStore";
 
 export function App() {
-  const { tasks, fetchTasks } = useTaskStore()
+    const { tasks, completedTasks, notCompletedTasks, fetchTasks } = useTaskStore()
 
-  useEffect(() => {
-    void fetchTasks()
-  }, [tasks, fetchTasks])
+    useEffect(() => {
+        void fetchTasks()
+    }, [fetchTasks]);
 
-  return (
-    <div className="flex min-h-svh p-6">
-      <div className="flex max-w-md min-w-0 flex-col gap-4 text-sm leading-loose">
-        <div>
-          {tasks.length}
-          <h1 className="font-medium">Project ready!</h1>
-          <p>You may now add components and start building.</p>
-          <p>We&apos;ve already added the button component for you.</p>
-          <Button className="mt-2">Button</Button>
+    console.log(tasks);
+
+    return (
+        <div className="flex min-h-screen justify-center p-6 w-full">
+            <div className="flex max-w-md min-w-0 flex-col gap-4 text-sm leading-loose">
+                Total tasks to complete: {notCompletedTasks.length}
+                <div>
+                    <TaskList tasks={tasks} completedTasks={completedTasks} notCompletedTasks={notCompletedTasks}/>
+                </div>
+                Tasks completed: {completedTasks.length}
+            </div>
         </div>
-        <div className="font-mono text-xs text-muted-foreground">
-          (Press <kbd>d</kbd> to toggle dark mode)
-        </div>
-      </div>
-    </div>
-  )
+    )
 }
 
-export default App
+export default App;

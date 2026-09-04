@@ -1,5 +1,7 @@
 export interface TaskState {
     tasks: Task[]
+    completedTasks: Task[]
+    notCompletedTasks: Task[]
     currentTask: Task | null
     isLoading: boolean
     error: string | null
@@ -14,7 +16,6 @@ export interface TaskState {
 export type Task = {
     id: number
     title: string
-    description: string
     completed: boolean
     dueDate: string
 }
