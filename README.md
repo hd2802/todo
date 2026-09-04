@@ -28,18 +28,37 @@ cd backend
 ``` bash
 ./gradlew bootRun
 ```
+### Frontend
+
+``` bash
+cd frontend
+```
+
+``` bash
+npm install
+```
+
+``` bash
+npm run dev
+```
 
 ## Testing
 
 ### Backend
 
-Test without coverage
-
+To run the tests:
 ``` bash
 ./gradlew test
 ```
 
-## Dev Commands
+There is currently (as of 04/09/2026) 96% coverage of the backend
+![screenshot of the main page of the application](./images/Screenshot%202026-09-04%20at%2016.33.14.png)
+
+### Frontend
+
+Frontend testing to come
+
+## Important Dev Commands
 
 ### Backend
 
