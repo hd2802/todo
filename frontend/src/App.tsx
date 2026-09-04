@@ -18,10 +18,10 @@ export function App() {
         </div>
 
         <div className="flex flex-col gap-4 w-full">
-            <span>Active Tasks:</span>
+            <span>Active:</span>
             <TaskList tasks={notCompletedTasks} />
 
-            <span>Completed Tasks:</span>
+            <span>Completed:</span>
             <TaskList tasks={completedTasks} />
         </div>
       </div>

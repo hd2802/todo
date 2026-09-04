@@ -24,12 +24,14 @@ export function TaskItem({ task }: TaskItemProps) {
     }
 
     return (
-        <Card className="p-2 flex justify-start flex-row items-center">
-            <Checkbox 
+        <Card className="p-2 flex justify-between flex-row items-center rounded-xs">
+            <div className="flex flex-row justify-start">
+                <Checkbox 
                 checked={checked}
                 onCheckedChange={handleCheck}
-            />
-            <span className="ml-2">{task.title}</span>
+                />
+                <span className="ml-4">{task.title}</span>
+            </div>
         </Card>
     )
 }   
