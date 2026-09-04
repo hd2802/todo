@@ -24,7 +24,7 @@ export function TaskItem({ task }: TaskItemProps) {
     }
 
     return (
-        <Card className="p-2 flex justify-between flex-row items-center rounded-xs">
+        <Card className="p-2 flex justify-between flex-row items-center rounded-xs mt-2 mb-2">
             <div className="flex flex-row justify-start">
                 <Checkbox 
                 checked={checked}
